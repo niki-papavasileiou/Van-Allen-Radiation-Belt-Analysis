@@ -21,16 +21,15 @@ df['fedo_3'][df['fedo_3']< 0] = np.nan
 df_1 = df.loc[(df['odi_unilib_l'] > 1 ) & (df['odi_unilib_l'] < 8) &(df['odi_unilib_alpha_eq']<90)  &(df['odi_unilib_alpha_eq']>0) ]
 df_2 = df.loc[(df['odi_unilib_l'] > 4.5 ) & (df['odi_unilib_l'] < 7.5) &(df['odi_unilib_alpha_eq']<90)  &(df['odi_unilib_alpha_eq']>0)]
 
-startdate = pd.to_datetime("2000-01-01 00:50:13").date()
-enddate = pd.to_datetime("2010-01-01 00:07:53").date()
+startdate = pd.to_datetime("2005-12-29 00:50:13").date()
+enddate = pd.to_datetime("2015-01-01 00:07:53").date()
 date_1 = df_1.loc[startdate:enddate]
 l = date_1['odi_unilib_l']
 
-startdate = pd.to_datetime("2000-01-01 00:50:13").date()
-enddate = pd.to_datetime("2010-01-01 00:07:53").date()
+startdate = pd.to_datetime("2005-01-01 00:50:13").date()
+enddate = pd.to_datetime("2015-01-01 00:07:53").date()
 date_2= df_2.loc[startdate:enddate]
 l = date_2['odi_unilib_l']
-
 
 date_1['epoch'] = date_1.index
 df_new = date_1.filter(['epoch','odi_unilib_l','fedo_3','fedo_2','fedo_1'], axis= 1)
@@ -81,7 +80,7 @@ fname='./Kp_and_ap_since_1932.txt'
 colnames=['YYY', 'MM', 'DD', 'hh.h', 'hh._m', 'days', 'days_m', 'Kp', 'ap', 'D'] 
 Kp_df = pd.read_csv(fname, delim_whitespace=True,skiprows=30, names = colnames, header=None,dtype='unicode')
 
-Kp_2000 = Kp_df.loc[Kp_df['YYY'] == '2000']
+Kp_2000 = Kp_df.loc[Kp_df['YYY'] == '2005']
 Kp_2000['Kp'] = pd.to_numeric(Kp_2000['Kp'])
 
 plot2000 = np.array(Kp_2000['Kp'])
@@ -99,7 +98,7 @@ corr_1month = Kp_2000['Kp'].autocorr(lag = 240)     #1 mina
 print(corr_1month)
 
 
-Kp_00_10 = Kp_df.loc[(Kp_df['YYY'] >= '2000') & (Kp_df['YYY'] <= '2010')]
+Kp_00_10 = Kp_df.loc[(Kp_df['YYY'] >= '2005') & (Kp_df['YYY'] <= '2015')]
 Kp_00_10['Kp'] = pd.to_numeric(Kp_00_10['Kp'])
 
 plot_00_10 = np.array(Kp_2000['Kp'])
