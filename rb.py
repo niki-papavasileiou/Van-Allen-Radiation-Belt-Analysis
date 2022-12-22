@@ -31,11 +31,18 @@ enddate = pd.to_datetime("2010-01-01 00:07:53").date()
 date_2= df_2.loc[startdate:enddate]
 l = date_2['odi_unilib_l']
 
-date_1['epoch'] = date_1.index
-df_new = date_1.filter(['epoch','odi_unilib_l','fedo_3'], axis= 1)
-fedo3= df_new['fedo_3']
 
-df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3) ,colorbar = True, cmap = cm.hsv)
+date_1['epoch'] = date_1.index
+df_new = date_1.filter(['epoch','odi_unilib_l','fedo_3','fedo_2','fedo_1'], axis= 1)
+fedo3= df_new['fedo_3']
+fedo1= df_new['fedo_1']
+fedo2= df_new['fedo_2']
+
+df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1) ,colorbar = True, cmap = cm.jet)
+plt.show()
+df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2) ,colorbar = True, cmap = cm.jet)
+plt.show()
+df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3) ,colorbar = True, cmap = cm.jet)
 plt.show()
 
 b_plot = date_2.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
@@ -46,6 +53,18 @@ plt.show()
 startdate = pd.to_datetime("2006-01-01 00:50:13").date()
 enddate = pd.to_datetime("2006-02-01 00:07:53").date()
 date_3 = df_2.loc[startdate:enddate]
+
+fedo_1_1month = date_3['fedo_1'].notna()
+fedo_2_1month = date_3['fedo_2'].notna()
+fedo_3_1month = date_3['fedo_3'].notna()
+
+print(fedo_1_1month.std(), fedo_2_1month.std(), fedo_3_1month.std())
+
+fedo_1 = date_2['fedo_1'].notna()
+fedo_2 = date_2['fedo_2'].notna()
+fedo_3 = date_2['fedo_3'].notna()
+
+print(fedo_1.std(), fedo_2.std(), fedo_3.std())
 
 anova = f_oneway(date_3['fedo_1'].notna(), date_3['fedo_2'].notna(), date_3['fedo_3'].notna())
 print(anova)
@@ -78,6 +97,7 @@ print(corr_1day)
 
 corr_1month = Kp_2000['Kp'].autocorr(lag = 240)     #1 mina
 print(corr_1month)
+
 
 Kp_00_10 = Kp_df.loc[(Kp_df['YYY'] >= '2000') & (Kp_df['YYY'] <= '2010')]
 Kp_00_10['Kp'] = pd.to_numeric(Kp_00_10['Kp'])
