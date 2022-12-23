@@ -12,11 +12,8 @@ df['epoch'] = pd.to_datetime(df['epoch']).dt.date
 df = df.set_index('epoch')   
 
 df['fedo_1'][df['fedo_1']< 0] = np.nan
-#df = df[df['fedo_1'].notna()]
 df['fedo_2'][df['fedo_2']< 0] = np.nan
-#df = df[df['fedo_2'].notna()]
 df['fedo_3'][df['fedo_3']< 0] = np.nan 
-#df = df[df['fedo_3'].notna()]
 
 df_1 = df.loc[(df['odi_unilib_l'] > 1 ) & (df['odi_unilib_l'] < 8) &(df['odi_unilib_alpha_eq']<90)  &(df['odi_unilib_alpha_eq']>0) ]
 df_2 = df.loc[(df['odi_unilib_l'] > 4.5 ) & (df['odi_unilib_l'] < 7.5) &(df['odi_unilib_alpha_eq']<90)  &(df['odi_unilib_alpha_eq']>0)]
@@ -161,219 +158,243 @@ corr_1year = Kp_00_10['Kp'].autocorr(lag = 3650)     #1 xrono
 corr_2years = Kp_00_10['Kp'].autocorr(lag = 7300)     #2 xronia
 corr_5years = Kp_00_10['Kp'].autocorr(lag = 18250)     #5 xronia
 
-inpt = input("please choose a number\n\n--------HEATMAPS--------\n\ni.fedo 1 2005-1015\nii.fedo 2 2005-1015\niii.fedo 3 2005-2015\n1.fedo 1, 2005\n2.fedo 2 2005\n3.fedo 3 2005\n4.fedo 1 2006\n5.fedo 2 2006\n6.fedo 3 2006\n7.fedo 1 2007\n8.fedo 2 2007\n9.fedo 3 2007\n10.fedo 1 2008\n11.fedo 2 2008\n12.fedo 3 2008\n13.fedo 1 2009\n14.fedo 2 2009\n15.fedo 3 2009\n16.fedo 1 2010\n17.fedo 2 2010\n18.fedo 3 2010\n19.fedo 1 2011\n20.fedo 2 2011\n21.fedo 3 2011\n22.fedo 1 2012\n23.fedo 2 2012\n24.fedo 3 2012\n25.fedo 1 2013\n26.fedo 2 2013\n27.fedo 3 2013\n28.fedo 1 2014\n29.fedo 2 2014\n30.fedo 3 2014\n31.fedo 1 2015\n32.fedo 2 2015\n33.fedo 3 2015\n\n\n----------BOXPLOTS----------\n\nib.2005-2015\na.2005\nb.2006\nc.2007\nd.2008\ne.2009\nf.2010\ng.2011\nh.2012\ni.2013\nj.2014\nk.2015\n\n\n---------STANDARD DEVIATION-----------\n\n1i.2005-2015\n1ii.(2006-01-01-2006-02-01) one month\n\n\n----------ANOVA----------\n\n2i.(2005-2015) \n2ii.anova one day(2006-01-01-2006-01-02) \n\n\n----------Kp AUTOCORRELATION----------\n\n1a.plot 2005 autocorrelation\n1b.(2005) 3 hours\n1c.(2005) 1 day\n1d.(2005) 1 month\n1e. plot 2005-2015 autocorrelation\n1f.(2005-2015) 1 year\n1g.(2005-2015) 2 years\n1h.(2005-2015) 5 years\n")
-
-if inpt in ['1']:
-    date_2005.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2005) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['2']:
-    date_2005.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2005) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['3']:
-    date_2005.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2005) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['4']:
-    date_2006.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2006) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['5']:
-    date_2006.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2006) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['6']:
-    date_2006.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2006) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['7']:
-    date_2007.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2007) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['8']:
-    date_2007.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2007) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['9']:
-    date_2007.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2007) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['10']:
-    date_2008.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2008) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['11']:
-    date_2008.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2008) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['12']:
-    date_2008.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2008) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['13']:
-    date_2009.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2009) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['14']:
-    date_2009.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2009) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['15']:
-    date_2009.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2009) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['16']:
-    date_2010.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2010) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['17']:
-    date_2010.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2010) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['18']:
-    date_2010.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2010) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['19']:
-    date_2011.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2011) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['20']:
-    date_2011.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2011) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['21']:
-    date_2011.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2011) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['22']:
-    date_2012.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2012) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['23']:
-    date_2012.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2012) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['24']:
-    date_2012.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2012) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['25']:
-    date_2013.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2013) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['26']:
-    date_2013.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2013) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['27']:
-    date_2013.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2013) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['30']:
-    date_2014.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2014) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['31']:
-    date_2014.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2014) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['32']:
-    date_2014.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2014) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['33']:
-    date_2015.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2015) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['34']:
-    date_2015.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2015) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['35']:
-    date_2015.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2015) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['i']:
-    df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['ii']:
-    df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-elif inpt in ['iii']:
-    df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3) ,colorbar = True, cmap = cm.jet)
-    plt.show()
-
-elif inpt in ['ib']:
-
-    plt.show()
-    b_plot = date_2.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
+input1 = input("please choose a number\n\n1.Heatmaps\n2.Boxplots\n3.Standard Deviation\n4.ANOVA\n5.Kp autocorrelation\n")
+if input1 in ['1']:
 
 
-elif inpt in ['a']:
-    plt.show()
-    b_plot = date_2005.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['b']:
-    plt.show()
-    b_plot = date_2006.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['c']:
-    plt.show()
-    b_plot = date_2007.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['d']:
-    plt.show()
-    b_plot = date_2008.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['e']:
-    plt.show()
-    b_plot = date_2009.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['f']:
-    plt.show()
-    b_plot = date_2010.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['g']:
-    plt.show()
-    b_plot = date_2011.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['h']:
-    plt.show()
-    b_plot = date_2012.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['i']:
-    plt.show()
-    b_plot = date_2013.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['j']:
-    plt.show()
-    b_plot = date_2014.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['k']:
-    plt.show()
-    b_plot = date_2015.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
-    plt.yscale('log')
-    b_plot.plot()
-    plt.show()
-elif inpt in ['1a']:
-    plot2005 = np.array(Kp_2005['Kp'])
-    x = pd.plotting.autocorrelation_plot(plot2005)
-    x.plot()
-    plt.show()
-elif inpt in ['1b']:
-    print(corr_3hours)
-elif inpt in ['1c']:
-    print(corr_1day)
-elif inpt in ['1d']:
-    print(corr_1month)
-elif inpt in ['1e']:
-    plot_00_10 = np.array(Kp_2005['Kp'])
-    x = pd.plotting.autocorrelation_plot(plot_00_10)
-    x.plot()
-    plt.show()
-elif inpt in ['1f']:
-    print(corr_1year)
-elif inpt in ['1g']:
-    print(corr_2years)
-elif inpt in ['1h']:
-    print(corr_5years)
-elif inpt in ['1i']:
-    print(fedo_1.std(), fedo_2.std(), fedo_3.std())
-elif inpt in ['1ii']:
-    print(fedo_1_1month.std(), fedo_2_1month.std(), fedo_3_1month.std())
-elif inpt in ['2i']:
-    print(anova)
-elif inpt in ['2i']:
-    print(anova_1day)
+    inpt = input("please choose a number\n\n--------HEATMAPS--------\n\n1.fedo 1 2005-1015\n2.fedo 2 2005-1015\n3.fedo 3 2005-2015\n4.fedo 1, 2005\n5.fedo 2 2005\n6.fedo 3 2005\n7.fedo 1 2006\n8.fedo 2 2006\n9.fedo 3 2006\n10.fedo 1 2007\n11.fedo 2 2007\n12.fedo 3 2007\n13.fedo 1 2008\n14.fedo 2 2008\n15.fedo 3 2008\n16.fedo 1 2009\n17.fedo 2 2009\n18.fedo 3 2009\n19.fedo 1 2010\n20.fedo 2 2010\n21.fedo 3 2010\n22.fedo 1 2011\n23.fedo 2 2011\n24.fedo 3 2011\n25.fedo 1 2012\n26.fedo 2 2012\n27.fedo 3 2012\n28.fedo 1 2013\n29.fedo 2 2013\n30.fedo 3 2013\n31.fedo 1 2014\n32.fedo 2 2014\n33.fedo 3 2014\n34.fedo 1 2015\n35.fedo 2 2015\n36.fedo 3 2015\n")
+
+    if inpt in ['1']:
+        df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['2']:
+        df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['3']:
+        df_new.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['4']:
+        date_2005.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2005) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['5']:
+        date_2005.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2005) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['6']:
+        date_2005.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2005) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['7']:
+        date_2006.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2006) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['8']:
+        date_2006.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2006) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['9']:
+        date_2006.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2006) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['10']:
+        date_2007.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2007) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['11']:
+        date_2007.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2007) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['12']:
+        date_2007.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2007) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['13']:
+        date_2008.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2008) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['14']:
+        date_2008.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2008) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['15']:
+        date_2008.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2008) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['16']:
+        date_2009.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2009) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['17']:
+        date_2009.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2009) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['18']:
+        date_2009.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2009) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['19']:
+        date_2010.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2010) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['20']:
+        date_2010.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2010) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['21']:
+        date_2010.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2010) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['22']:
+        date_2011.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2011) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['23']:
+        date_2011.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2011) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['24']:
+        date_2011.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2011) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['25']:
+        date_2012.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2012) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['26']:
+        date_2012.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2012) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['27']:
+        date_2012.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2012) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['28']:
+        date_2013.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2013) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['29']:
+        date_2013.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2013) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['30']:
+        date_2013.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2013) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['31']:
+        date_2014.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2014) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['32']:
+        date_2014.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2014) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['33']:
+        date_2014.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2014) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['34']:
+        date_2015.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo1_2015) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['35']:
+        date_2015.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo2_2015) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+    elif inpt in ['36']:
+        date_2015.plot(kind = 'scatter', x = 'epoch' , y = 'odi_unilib_l', c = np.log10(fedo3_2015) ,colorbar = True, cmap = cm.jet)
+        plt.show()
+
+elif input1 in ['2']:
+
+
+    inpt = input("please choose a number\n\n--------BOXPLOTS--------\n\n\n\n1.2005-2015\n2.2005\n3.2006\n4.2007\n5.2008\n6.2009\n7.2010\n8.2011\n9.2012\n10.2013\n11.2014\n12.2015\n")
+
+    if inpt in ['1']:
+
+        plt.show()
+        b_plot = date_2.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+
+    elif inpt in ['2']:
+        plt.show()
+        b_plot = date_2005.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['3']:
+        plt.show()
+        b_plot = date_2006.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['4']:
+        plt.show()
+        b_plot = date_2007.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['5']:
+        plt.show()
+        b_plot = date_2008.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['6']:
+        plt.show()
+        b_plot = date_2009.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['7']:
+        plt.show()
+        b_plot = date_2010.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['8']:
+        plt.show()
+        b_plot = date_2011.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['9']:
+        plt.show()
+        b_plot = date_2012.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['10']:
+        plt.show()
+        b_plot = date_2013.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['11']:
+        plt.show()
+        b_plot = date_2014.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+    elif inpt in ['12']:
+        plt.show()
+        b_plot = date_2015.boxplot(column = ['fedo_1', 'fedo_2', 'fedo_3']) 
+        plt.yscale('log')
+        b_plot.plot()
+        plt.show()
+
+elif input1 in ['3']:
+
+
+    inpt = input("please choose a number\n\n--------STANDARD DEVATION--------\n\n\n1.2005-2015\n2.2006-01-01-2006-02-01 one month\n\n")
+
+    if inpt in ['1']:
+        print(fedo_1.std(), fedo_2.std(), fedo_3.std())
+    elif inpt in ['2']:
+        print(fedo_1_1month.std(), fedo_2_1month.std(), fedo_3_1month.std())
+
+elif input1 in ['4']:
+
+    inpt = input("please choose a number\n\n--------ANOVA--------\n\n\n1.2005-2015 \n2.anova one day(2006-01-01-2006-01-02)\n")
+
+    if inpt in ['1']:
+        print(anova)
+    elif inpt in ['2']:
+        print(anova_1day)
+
+elif input1 in ['5']:
+
+    inpt = input("please choose a number\n\n\n----------Kp AUTOCORRELATION----------\n\n1. plot 2005-2015 autocorrelation\n2.(2005-2015) 1 year\n3.(2005-2015) 2 years\n4.(2005-2015) 5 years\n5.plot 2005 autocorrelation\n6.(2005) 3 hours\n7.(2005) 1 day\n8.(2005) 1 month\n")
+
+    if inpt in ['1']:
+        plot_00_10 = np.array(Kp_2005['Kp'])
+        x = pd.plotting.autocorrelation_plot(plot_00_10)
+        x.plot()
+        plt.show()
+    elif inpt in ['2']:
+        print(corr_1year)
+    elif inpt in ['3']:
+        print(corr_2years)
+    elif inpt in ['4']:
+        print(corr_5years)
+    elif inpt in ['5']:
+        plot2005 = np.array(Kp_2005['Kp'])
+        x = pd.plotting.autocorrelation_plot(plot2005)
+        x.plot()
+        plt.show()
+    elif inpt in ['6']:
+        print(corr_3hours)
+    elif inpt in ['7']:
+        print(corr_1day)
+    elif inpt in ['8']:
+        print(corr_1month)
