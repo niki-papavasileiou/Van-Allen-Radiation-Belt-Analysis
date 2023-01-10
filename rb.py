@@ -158,7 +158,20 @@ corr_1year = Kp_00_10['Kp'].autocorr(lag = 3650)     #1 xrono
 corr_2years = Kp_00_10['Kp'].autocorr(lag = 7300)     #2 xronia
 corr_5years = Kp_00_10['Kp'].autocorr(lag = 18250)     #5 xronia
 
-input1 = input("please choose a number\n\n1.Heatmaps\n2.Boxplots\n3.Standard Deviation\n4.ANOVA\n5.Kp autocorrelation\n")
+
+af1 = date_1.groupby(np.arange(len(date_1)) // 504).agg({'epoch':'last', 'fedo_1':'mean'})
+af2 = date_1.groupby(np.arange(len(date_1)) // 504).agg({'epoch':'last', 'fedo_2':'mean'})
+af3 = date_1.groupby(np.arange(len(date_1)) // 504).agg({'epoch':'last', 'fedo_3':'mean'})
+Kp_00_10 = Kp_00_10.groupby(np.arange(len(Kp_00_10)) // 14).agg({'YYY':'last', 'Kp':'mean'})
+y_avgfedo1 = np.log10(af1['fedo_1'])
+y_avgfedo2 = np.log10(af2['fedo_2'])
+y_avgfedo3 = np.log10(af3['fedo_3'])
+af1['fedo_1']= y_avgfedo1
+af2['fedo_2']= y_avgfedo2
+af3['fedo_3']= y_avgfedo3
+
+
+input1 = input("please choose a number\n\n1.Heatmaps\n2.Boxplots\n3.Standard Deviation\n4.ANOVA\n5.Kp autocorrelation\n6.Kp-FEDO correlation\n")
 if input1 in ['1']:
 
 
@@ -506,3 +519,12 @@ elif input1 in ['5']:
         print(corr_1day)
     elif inpt in ['8']:
         print(corr_1month)
+
+elif input1 in ['6']:
+    fig, axes = plt.subplots(nrows=2, ncols=1)
+    af1.plot(ax=axes[0],x='epoch', y='fedo_1' ,color="red", figsize=(10,5))
+    af2.plot(ax=axes[0],x='epoch', y='fedo_2', color="orange", figsize=(10,5))
+    af3.plot(ax=axes[0],x='epoch', y='fedo_3', color="green", figsize=(10,5))
+    Kp_00_10.plot(ax=axes[1],x='YYY', y='Kp', color="blue", figsize=(5,3))
+
+    plt.show()
